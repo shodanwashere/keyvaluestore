@@ -6,6 +6,7 @@ A library based on Amazon's Key-value Store, written as a project for the **Dist
 - Pedro Pinto, fc56369
 ## Updates
 - **0.1** (October 5th, 18:04) :: Finished the `data`, `entry` and `tree` modules, all of which pass all the tests supplied by the teachers
+- **1.0** (October 6th, 10:49) :: Finished implementing the libraries. Ready for phase 2.
 
 ## Building and using
 Integrate this library into your own project if you want and write your own makefile, but if you're a **FCUL Distributed Systems teacher evaluating this** (you sneaky little man), just drop your source `test-*.c` files into the included source folder, then, from the project's root directory use:
