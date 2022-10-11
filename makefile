@@ -9,6 +9,7 @@ INC_dir=include
 CFLAGS=-g -Wall -I $(INC_dir)
 OBJ_dir=object
 data.o=
+serialization.o=
 entry.o=data.h
 tree.o=data.h entry.h tree-private.h
 
@@ -20,7 +21,7 @@ all: out
 
 out: test_data test_entry test_tree clean_obj
 %.o: source/%.c $($@)
-	$(CC) $(CFLAGS) -o $(OBJ_dir)/$@ -c $<
+	$(CC) $(CFLAGS) $(INC_DIR) -o $(OBJ_dir)/$@ -c $<
 clean: clean_obj clean_bin
 clean_obj:
 	rm -f object/*.o

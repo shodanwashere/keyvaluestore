@@ -19,6 +19,9 @@
  */
 struct tree_t *tree_create(){
     struct tree_t *ret = malloc(sizeof(struct tree_t));
+
+    if (ret == NULL) return NULL;//Erro malloc
+
     ret->entry = NULL;
     ret->leftNode = NULL;
     ret->rightNode = NULL;
@@ -63,7 +66,7 @@ int tree_put(struct tree_t *tree, char *key, struct data_t *value){
                 //entry_replace(tree->entry, key, value);
                 data_destroy(tree->entry->value);
                 tree->entry->value = data_dup(value);
-                                
+
                 entry_destroy(entry);
                 return 0;
             case -1: tree = tree->leftNode; break;
@@ -71,7 +74,7 @@ int tree_put(struct tree_t *tree, char *key, struct data_t *value){
         }
     }
 
-    if (tree->entry == NULL) { 
+    if (tree->entry == NULL) {
 
         tree->entry = entry_dup(entry);// entry_create(key, value);
         tree->leftNode = tree_create();
@@ -117,10 +120,10 @@ struct data_t *tree_get(struct tree_t *tree, char *key){
 struct tree_t* minValueNode(struct tree_t* node)
 {
     struct tree_t* current = node;
-  
+
     while (current && current->leftNode != NULL && current->leftNode->entry != NULL)
         current = current->leftNode;
-  
+
     return current;
 }
 
@@ -134,22 +137,22 @@ struct tree_t * deleteNode(struct tree_t *root, char *key, int *found) {
         *found = 0;
         return root;
     }
-  
-    // If the key to be deleted 
+
+    // If the key to be deleted
     // is smaller than the root's
     // key, then it lies in left subtree
     if ( strcmp(key,  root->entry->key) < 0) {
         root->leftNode = deleteNode(root->leftNode, key, found);
 
     }
-    // If the key to be deleted 
+    // If the key to be deleted
     // is greater than the root's
     // key, then it lies in right subtree
     else if (strcmp(key, root->entry->key) > 0) {
         root->rightNode = deleteNode(root->rightNode, key, found);
         }
-  
-    // if key is same as root's key, 
+
+    // if key is same as root's key,
     // then This is the node
     // to be deleted
     else {
@@ -167,15 +170,15 @@ struct tree_t * deleteNode(struct tree_t *root, char *key, int *found) {
             return temp;
         }
 
-        // node with two children: 
+        // node with two children:
         // Get the inorder successor
         // (smallest in the right subtree)
         struct tree_t* temp = minValueNode(root->rightNode);
 
-        // Copy the inorder 
+        // Copy the inorder
         // successor's content to this node
         root->entry = temp->entry;
-  
+
         // Delete the inorder successor
         root->rightNode = deleteNode(root->rightNode, temp->entry->key, NULL);
     }
